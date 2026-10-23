@@ -1,0 +1,77 @@
+name: Deploy PROD POC
+
+on:
+  pull_request:
+    branches: [main]
+    types: [closed]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: unmeshed-prod-poc
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: >-
+      github.event.pull_request.merged == true &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      (
+        github.event.pull_request.head.ref == 'preprod' ||
+        startsWith(
+          github.event.pull_request.head.ref,
+          'preprod/'
+        )
+      )
+
+    runs-on: ubuntu-latest
+
+    environment: production
+
+    permissions:
+      contents: write
+
+    env:
+      UNMESHED_URL: ${{ secrets.UNMESHED_URL }}
+      UNMESHED_TOKEN: ${{ secrets.UNMESHED_TOKEN }}
+
+    steps:
+      - name: Check out approved merged commit
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.merge_commit_sha }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Unmeshed CLI
+        uses: unmeshed/setup-unmeshed@v1
+
+      - name: Authenticate to Unmeshed
+        run: |
+          set -euo pipefail
+
+          printf '%s\n' "$UNMESHED_TOKEN" |
+            unmeshed login \
+              --url "$UNMESHED_URL" \
+              --api-key-stdin \
+              --non-interactive
+
+      - name: Deploy calendars, variables, and namespace
+        run: python scripts/deploy.py
+
+      - name: Tag successful deployment
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          set -euo pipefail
+
+          tag="prod-pr-$PR_NUMBER"
+
+          git tag "$tag"
+          git push origin "$tag"
+
+          echo "Created deployment tag: $tag"

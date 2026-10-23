@@ -1,0 +1,2 @@
+service:
+  endpoint: https://prod-api.internal
