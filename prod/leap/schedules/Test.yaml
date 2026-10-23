@@ -1,0 +1,15 @@
+calendarId: 14
+description: Test
+enabled: true
+endBy: null
+input: null
+name: Test
+overlapPolicy: ALLOW_OVERLAP
+processName: Test
+processNamespace: leap
+processVersion: 1
+schedule: 000 01 * * *
+startFrom: "2026-10-22T02:59:18.344Z"
+type: CALENDAR
+userIdentifier: rakesh@unmeshed.com
+zoneId: Asia/Singapore

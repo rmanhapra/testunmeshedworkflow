@@ -1,0 +1,38 @@
+completionTimeoutConfig: null
+failConfig:
+  action: RETRY
+  retryBackoffExponential: false
+  retryCount: 2
+  retryInterval: 5
+  retryIntervalDurationType: SECONDS
+  runRequest:
+    correlationId: null
+    id: null
+    input:
+      timeout: "30"
+    name: leap_send_error_notification
+    namespace: leap
+    testRun: false
+    version: null
+  runRequestAfterRetries: true
+name: LEAP_Long_Run_Warning
+namespace: leap
+responseTimeoutConfig:
+  action: NONE
+  duration: 30
+  durationType: MINUTES
+  retryBackoffExponential: false
+  retryCount: 2
+  retryInterval: 60000
+  retryIntervalDurationType: MILLIS
+  runOnce: true
+  runRequest:
+    correlationId: null
+    id: null
+    input:
+      timeout: "30"
+    name: leap_send_error_notification
+    namespace: leap
+    testRun: false
+    version: null
+startTimeoutConfig: null
