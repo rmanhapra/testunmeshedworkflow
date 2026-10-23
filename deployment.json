@@ -2,15 +2,15 @@
   "namespace": "leap",
   "calendars": [
     {
-      "name": "calendar1",
+      "name": "all_weekdays_calendar",
       "action": "add",
-      "file": "calendar1.yaml"
+      "file": "all_weekdays_calendar.yaml"
     }
   ],
   "variables": [
     {
-      "name": "variable1",
-      "file": "variable1.json"
+      "name": "env",
+      "file": "env.json"
     }
   ]
 }
