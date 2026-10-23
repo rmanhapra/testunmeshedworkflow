@@ -1,0 +1,80 @@
+configuration: null
+defaultInput: null
+defaultOutput: null
+dependencies: null
+dependents: null
+description: null
+metadata: null
+name: leap_send_error_notification
+namespace: leap
+outputMapping: null
+signature: null
+steps:
+  - children: []
+    configuration:
+      cacheKey: null
+      cacheTimeoutSeconds: 0
+      constructInputFromScript: false
+      errorPolicyName: null
+      jqTransformer: null
+      preExecutionScript: null
+      rateLimitMaxRequests: 0
+      rateLimitWindowSeconds: 0
+      scriptLanguage: null
+      stream: false
+      streamAllStatuses: false
+      useCache: false
+    created: 1.731900461654e+12
+    createdBy: system
+    description: null
+    input:
+      script: "// (steps, context) will be provided as default inputs \n(steps, context) => {\n    const emailContent = `\n    \nHi Support Team,\n\nThis {{ context.input.__relatedProcessContext.process.id }} has failed: {{context.input.__relatedProcessContext.process.name}}\n\nLink to Process: https://sg-unmesheduat.aiaazure.biz/app/processRuns/{{ context.input.__relatedProcessContext.process.id }}\n\nThe step that failed is: {{ context.input.__relatedProcessContext.triggerStep.ref }} ({{ context.input.__relatedProcessContext.triggerStep.id }})\n\nPlease help to review error and resume job once fix is deployed\n\nThis is the error message:\n\n${formatJson(context.input.__relatedProcessContext.triggerStep.output)}\n\nThanks and Regards,\n\nUnmeshed Automated\n\n(This is an automated notification, please do not reply to this email)\n    \n    `;\n\n    const emailSubject = `{{variables.ENV}} - ${context.input?.__relatedProcessContext?.process?.name || ''} - Process Failed`\n\n    return {\n        \"emailContent\" : emailContent,\n        \"emailSubject\": emailSubject\n    }\n}\n\nfunction formatJson(jsonObject) {\n  try {\n    if (typeof jsonObject !== \"object\" || jsonObject === null) {\n      return JSON.stringify(jsonObject);\n    }\n\n    // Sort the keys of the object\n    const sortedKeys = Object.keys(jsonObject).sort();\n\n    // Build the formatted string\n    const formattedString = sortedKeys\n      .map((key) => {\n        const value = jsonObject[key];\n        const stringifiedValue =\n          typeof value === \"object\" && value !== null\n            ? JSON.stringify(value)\n            : value === null\n            ? \"null\"\n            : typeof value === \"string\"\n            ? `\"${value}\"`\n            : value.toString();\n        return `${key}: ${stringifiedValue}`;\n      })\n      .join(\"\\n\");\n\n    return formattedString;\n  } catch (error) {\n    return JSON.stringify(jsonObject);\n  }\n}\n"
+    label: null
+    name: format_error
+    namespace: default
+    optional: false
+    orgId: 568
+    output: null
+    ref: format_error
+    type: JAVASCRIPT
+    updated: 1.731900461654e+12
+    updatedBy: system
+  - children: []
+    configuration:
+      cacheKey: null
+      cacheTimeoutSeconds: 0
+      constructInputFromScript: false
+      errorPolicyName: null
+      jqTransformer: null
+      preExecutionScript: null
+      rateLimitMaxRequests: 0
+      rateLimitWindowSeconds: 0
+      scriptLanguage: null
+      stream: false
+      streamAllStatuses: false
+      useCache: false
+    created: 1.731895831084e+12
+    createdBy: system
+    description: null
+    input:
+      bcc: []
+      body: '{{ steps.format_error.output.result.emailContent }}'
+      cc: []
+      from: suednd01@aia.com
+      fromName: Unmeshed Notification
+      isHtml: false
+      subject: '{{ steps.format_error.output.result.emailSubject }}'
+      to: tss.release.leap@aia.com,sg.asdc-operators@aia.com,sg.asdc-uat@aia.com,aiasgops@kyndryl.com
+    label: null
+    name: send_email
+    namespace: default
+    optional: false
+    orgId: 568
+    output: null
+    ref: send_email_ref_1
+    type: WORKER
+    updated: 1.731895831084e+12
+    updatedBy: system
+tags: null
+type: API_ORCHESTRATION
+version: 1

@@ -1,0 +1,15 @@
+calendarId: 13
+description: SLEAP-DBR-SCH
+enabled: false
+endBy: null
+input: null
+name: SLEAP-DBR-SCH
+overlapPolicy: DO_NOT_OVERLAP
+processName: SLEAP-DBR
+processNamespace: leap
+processVersion: 1
+schedule: 000 01 * * *
+startFrom: "2026-10-23T04:31:19.463Z"
+type: CALENDAR
+userIdentifier: rakesh@unmeshed.com
+zoneId: Asia/Singapore

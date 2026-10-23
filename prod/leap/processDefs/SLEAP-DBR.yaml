@@ -1,0 +1,75 @@
+configuration: null
+defaultInput: null
+defaultOutput: null
+dependencies: null
+dependents: null
+description: null
+metadata: null
+name: SLEAP-DBR
+namespace: leap
+outputMapping: null
+signature: null
+steps:
+  - children: []
+    configuration:
+      cacheKey: null
+      cacheTimeoutSeconds: 0
+      constructInputFromScript: false
+      errorPolicyName: LEAP_Long_Run_Warning
+      jqTransformer: null
+      preExecutionScript: null
+      rateLimitMaxRequests: 0
+      rateLimitWindowSeconds: 0
+      scriptLanguage: null
+      stream: false
+      streamAllStatuses: false
+      useCache: false
+    created: 0
+    createdBy: null
+    description: Generate Policy Year
+    input:
+      command: '{{variables.LEAP_PATH}}/autoSys_core_job.sh jobCode=10030 userCode={{variables.LEAP_userCode}} jobKey=01'
+    label: null
+    name: bash.SGAZEULAP0040
+    namespace: leap
+    optional: false
+    orgId: 568
+    output: null
+    ref: B-SLEAP0100D
+    type: WORKER
+    updated: 0
+    updatedBy: null
+  - children: []
+    configuration:
+      cacheKey: null
+      cacheTimeoutSeconds: 0
+      constructInputFromScript: false
+      errorPolicyName: LEAP_Long_Run_Warning
+      jqTransformer: null
+      preExecutionScript: null
+      rateLimitMaxRequests: 0
+      rateLimitWindowSeconds: 0
+      scriptLanguage: null
+      stream: false
+      streamAllStatuses: false
+      useCache: false
+    created: 0
+    createdBy: null
+    description: Update last DBR date and next DBR date
+    input:
+      command: '{{variables.LEAP_PATH}}/autoSys_core_job.sh jobCode=83960 userCode={{variables.LEAP_userCode}} jobKey=01'
+    label: null
+    name: bash.SGAZEULAP0040
+    namespace: leap
+    optional: false
+    orgId: 568
+    output: null
+    ref: B-SLEAP7800D
+    type: WORKER
+    updated: 0
+    updatedBy: null
+tags:
+  - name: ApplicationName
+    value: LEAP
+type: STANDARD
+version: 1
