@@ -121,6 +121,8 @@ def main():
             payload_file.write_text(json.dumps(payload))
             payload_file.chmod(0o600)
 
+            print(f"payload {payload}")
+
             result = subprocess.run(
                 [
                     "curl",
@@ -133,10 +135,13 @@ def main():
                     f"{server_url}/api/globalVariables",
                     "--header", f"Authorization: Bearer {token}",
                     "--header", "Content-Type: application/json",
+                    "--header", "accept: */*",
                     "--data-binary", f"@{payload_file}",
                 ],
                 capture_output=True,
             )
+
+       
 
         if result.returncode != 0:
             raise RuntimeError(
