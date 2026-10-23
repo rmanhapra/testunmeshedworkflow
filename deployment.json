@@ -1,0 +1,16 @@
+{
+  "namespace": "leap",
+  "calendars": [
+    {
+      "name": "calendar1",
+      "action": "add",
+      "file": "calendar1.yaml"
+    }
+  ],
+  "variables": [
+    {
+      "name": "variable1",
+      "file": "variable1.json"
+    }
+  ]
+}
