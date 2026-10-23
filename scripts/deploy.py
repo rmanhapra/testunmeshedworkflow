@@ -130,7 +130,7 @@ def main():
                     "--connect-timeout", "15",
                     "--max-time", "120",
                     "--request", "POST",
-                    f"{server_url}/api/post",
+                    f"{server_url}/api/globalVariables",
                     "--header", f"Authorization: Bearer {token}",
                     "--header", "Content-Type: application/json",
                     "--data-binary", f"@{payload_file}",
