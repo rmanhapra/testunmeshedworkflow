@@ -140,7 +140,7 @@ def main():
 
         if result.returncode != 0:
             raise RuntimeError(
-                f"Variable update failed: {variable['name']}"
+                f"Variable update failed: {variable['name']}: {result}"
             )
 
         # Handle an application error returned with HTTP 200.
