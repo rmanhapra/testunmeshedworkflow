@@ -7,10 +7,5 @@
       "file": "all_weekdays_calendar.yaml"
     }
   ],
-  "variables": [
-    {
-      "name": "env",
-      "file": "env.json"
-    }
-  ]
+  "variables": []
 }
